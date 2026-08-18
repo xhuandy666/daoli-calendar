@@ -1,0 +1,17 @@
+# 依赖与构建产物（不入库）
+node_modules/
+android/.gradle/
+android/build/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+android/capacitor-cordova-android-plugins/.gradle/
+*.apk
+*.log
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.iml

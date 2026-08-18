@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#1b2a4a">
+  <meta name="color-scheme" content="light">
+  <title>道历 · 道家黄历</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- 顶栏 -->
+    <header class="topbar">
+      <div class="logo" aria-hidden="true">☯</div>
+      <div>
+        <h1>道 历</h1>
+        <div class="sub">道 家 黄 历 · 节 日 · 宜 忌</div>
+      </div>
+      <div class="tagline">观天之道 · 执天之行 · 尽矣</div>
+    </header>
+
+    <!-- 手机端 Tab -->
+    <nav class="tabs" id="tabs">
+      <button type="button" data-tab="today" class="active">今 日</button>
+      <button type="button" data-tab="calendar">月 历</button>
+    </nav>
+
+    <main class="main">
+
+      <!-- 左：月历 -->
+      <section class="card pane" id="pane-calendar">
+        <div class="card-inner">
+          <div class="cal-head">
+            <div class="cal-title">
+              <button type="button" id="calYearBtn" title="点击跳转年份">2026年</button>
+              <span id="calMonthLabel">8月</span>
+            </div>
+            <div class="cal-nav">
+              <button type="button" class="nav-btn" id="calPrev" title="上个月">‹ 上月</button>
+              <button type="button" class="nav-btn" id="calToday" title="回到今天">今</button>
+              <button type="button" class="nav-btn" id="calNext" title="下个月">下月 ›</button>
+            </div>
+          </div>
+          <div class="week-row">
+            <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+          </div>
+          <div class="cal-grid anim" id="calGrid" aria-label="月历网格"><div class="day-cell is-muted" data-y="2026" data-m="7" data-d="26"><div class="sd">26</div><div class="ld">十三</div></div><div class="day-cell is-muted" data-y="2026" data-m="7" data-d="27"><div class="sd">27</div><div class="ld">十四</div></div><div class="day-cell is-muted has-fest" data-y="2026" data-m="7" data-d="28"><span class="mark norm">✦</span><div class="sd">28</div><div class="ld">十五</div></div><div class="day-cell is-muted" data-y="2026" data-m="7" data-d="29"><div class="sd">29</div><div class="ld">十六</div></div><div class="day-cell is-muted" data-y="2026" data-m="7" data-d="30"><div class="sd">30</div><div class="ld">十七</div></div><div class="day-cell is-muted" data-y="2026" data-m="7" data-d="31"><div class="sd">31</div><div class="ld">十八</div></div><div class="day-cell has-fest" data-y="2026" data-m="8" data-d="1"><span class="mark imp">◆</span><div class="sd">1</div><div class="ld">十九</div><div class="cal-badge t-成道 imp">慈航道人成道日</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="2"><div class="sd">2</div><div class="ld">二十</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="3"><div class="sd">3</div><div class="ld">廿一</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="4"><div class="sd">4</div><div class="ld">廿二</div></div><div class="day-cell has-fest" data-y="2026" data-m="8" data-d="5"><span class="mark norm">✦</span><div class="sd">5</div><div class="ld">廿三</div><div class="cal-badge t-圣诞">火德星君圣诞</div></div><div class="day-cell has-fest" data-y="2026" data-m="8" data-d="6"><span class="mark imp">◆</span><div class="sd">6</div><div class="ld">廿四</div><div class="cal-badge t-圣诞 imp">关帝圣诞 +1</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="7"><div class="sd">7</div><div class="ld">廿五</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="8"><div class="sd">8</div><div class="ld">廿六</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="9"><div class="sd">9</div><div class="ld">廿七</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="10"><div class="sd">10</div><div class="ld">廿八</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="11"><div class="sd">11</div><div class="ld">廿九</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="12"><div class="sd">12</div><div class="ld">三十</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="13"><div class="sd">13</div><div class="ld">初一</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="14"><div class="sd">14</div><div class="ld">初二</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="15"><div class="sd">15</div><div class="ld">初三</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="16"><div class="sd">16</div><div class="ld">初四</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="17"><div class="sd">17</div><div class="ld">初五</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="18"><div class="sd">18</div><div class="ld">初六</div></div><div class="day-cell has-fest is-today is-selected" data-y="2026" data-m="8" data-d="19"><span class="mark imp">◆</span><div class="sd">19</div><div class="ld">初七</div><div class="cal-badge t-腊日 imp">道德腊 +2</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="20"><div class="sd">20</div><div class="ld">初八</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="21"><div class="sd">21</div><div class="ld">初九</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="22"><div class="sd">22</div><div class="ld">初十</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="23"><div class="sd">23</div><div class="ld">十一</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="24"><div class="sd">24</div><div class="ld">十二</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="25"><div class="sd">25</div><div class="ld">十三</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="26"><div class="sd">26</div><div class="ld">十四</div></div><div class="day-cell has-fest" data-y="2026" data-m="8" data-d="27"><span class="mark imp">◆</span><div class="sd">27</div><div class="ld">十五</div><div class="cal-badge t-三元 imp">中元节 +1</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="28"><div class="sd">28</div><div class="ld">十六</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="29"><div class="sd">29</div><div class="ld">十七</div></div><div class="day-cell has-fest" data-y="2026" data-m="8" data-d="30"><span class="mark norm">✦</span><div class="sd">30</div><div class="ld">十八</div><div class="cal-badge t-圣诞">王母娘娘圣诞</div></div><div class="day-cell" data-y="2026" data-m="8" data-d="31"><div class="sd">31</div><div class="ld">十九</div></div><div class="day-cell is-muted" data-y="2026" data-m="9" data-d="1"><div class="sd">1</div><div class="ld">二十</div></div><div class="day-cell is-muted" data-y="2026" data-m="9" data-d="2"><div class="sd">2</div><div class="ld">廿一</div></div><div class="day-cell is-muted" data-y="2026" data-m="9" data-d="3"><div class="sd">3</div><div class="ld">廿二</div></div><div class="day-cell is-muted" data-y="2026" data-m="9" data-d="4"><div class="sd">4</div><div class="ld">廿三</div></div><div class="day-cell is-muted" data-y="2026" data-m="9" data-d="5"><div class="sd">5</div><div class="ld">廿四</div></div></div>
+        </div>
+      </section>
+
+      <!-- 右：今日详情 -->
+      <section class="card pane active" id="pane-today">
+        <div class="card-inner">
+          <div class="today-hero">
+            <div class="solar-date" id="tSolar">2026年8月19日</div>
+            <div class="solar-week" id="tWeek">星期三</div>
+            <div class="lunar-date" id="tLunar">农历 二〇二六年七月初七</div>
+            <div class="shengxiao" id="tShengxiao">生肖 · 马</div>
+            <div class="tao-date" id="tTao">道历四七二三年</div>
+          </div>
+
+          <div class="ganzhi-grid">
+            <div class="gz-cell"><div class="k">年 · 干支</div><div class="v" id="tGzY">丙午年</div></div>
+            <div class="gz-cell"><div class="k">月 · 干支</div><div class="v" id="tGzM">丙申月</div></div>
+            <div class="gz-cell"><div class="k">日 · 干支</div><div class="v" id="tGzD">乙丑日</div></div>
+          </div>
+
+          <div class="jieqi-line" id="tJieqi" hidden=""></div>
+
+          <div class="section-title">今日节日</div>
+          <div id="tFestivals" class="fest-list"><div class="fest-item"><span class="badge badge imp t-腊日">腊日</span><span class="name">道德腊</span><span class="arrow">›</span></div><div class="fest-item"><span class="badge badge imp t-传统节日">传统节日</span><span class="name">七夕节</span><span class="arrow">›</span></div><div class="fest-item"><span class="badge badge t-圣诞">圣诞</span><span class="name">魁星圣诞</span><span class="arrow">›</span></div><div class="fest-item"><span class="badge badge t-祭祀">祭祀</span><span class="name">庆生中会</span><span class="arrow">›</span></div></div>
+
+          <div class="section-title">今日宜忌</div>
+          <div class="yiji">
+            <div class="col col-yi"><h4>宜</h4><ul id="tYi"><li>破土</li><li>安葬</li><li>移柩</li><li>入殓</li><li>祭祀</li><li>捕捉</li><li>除服</li><li>成服</li><li>馀事勿取</li></ul></div>
+            <div class="col col-ji"><h4>忌</h4><ul id="tJi"><li>嫁娶</li><li>入宅</li><li>开市</li><li>交易</li></ul></div>
+          </div>
+
+          <div class="day-nav">
+            <button type="button" id="prevDay">‹ 前一天</button>
+            <button type="button" id="nextDay">后一天 ›</button>
+            <input type="date" id="datePicker" aria-label="选择日期">
+            <button type="button" class="today-btn" id="goToday">今天</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">甲子循环 · 阴阳相生 —— 本历纯本地运行，无需网络</footer>
+  </div>
+
+  <!-- 节日详情弹窗 -->
+  <div class="modal-mask" id="festModal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="mTitle">节日</h3>
+        <button type="button" class="modal-close" id="mClose" aria-label="关闭">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="f-date" id="mDate"></div>
+        <div class="f-desc" id="mDesc"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 年份跳转弹窗 -->
+  <div class="modal-mask" id="yearModal" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>跳转年份</h3>
+        <button type="button" class="modal-close" id="yClose" aria-label="关闭">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="f-desc">输入公元年份（1 – 9999），月历将跳转到该年当月。</div>
+        <div class="year-box">
+          <input type="number" id="yearInput" min="1" max="9999" placeholder="如 2026" inputmode="numeric">
+          <button type="button" id="yearGo">跳转</button>
+        </div>
+        <div class="modal-hint">lunar.js 引擎支持公元 1–9999 年，任意年份均可。</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="lunar.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+
+
+</body></html>

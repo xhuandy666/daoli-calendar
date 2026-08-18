@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">道系日历</string>
+    <string name="title_activity_main">道系日历</string>
+    <string name="package_name">com.daoli.calendar</string>
+    <string name="custom_url_scheme">com.daoli.calendar</string>
+</resources>
