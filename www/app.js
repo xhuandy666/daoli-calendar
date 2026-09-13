@@ -330,9 +330,10 @@
     setText("tLunar", "农历 " + lunar.toString());
     setText("tShengxiao", "生肖 · " + lunar.getYearShengXiao());
     setText("tTao", "道历" + tao.toString().split("年")[0] + "年");
-    DaoliJournal.colorize(el("tGzY"), lunar.getYearInGanZhi() + "年");
+    DaoliJournal.colorize(el("tGzY"), lunar.getYearInGanZhiByLiChun() + "年");
     DaoliJournal.colorize(el("tGzM"), lunar.getMonthInGanZhi() + "月");
     DaoliJournal.colorize(el("tGzD"), lunar.getDayInGanZhi() + "日");
+    DaoliBazi.renderToday(lunar);
     DaoliJournal.show(DaoliJournal.dateKey(d));
 
     // 节气
@@ -470,6 +471,7 @@
       gz.className = "cal-ganzhi";
       DaoliJournal.colorize(gz, lunar.getDayInGanZhi());
       cell.appendChild(gz);
+      DaoliBazi.annotate(cell, lunar.getDayInGanZhi(), true);
       if (DaoliJournal.has(DaoliJournal.dateKey(makeDate(cellY, cellM, cellD)))) {
         cell.classList.add("has-journal");
       }
@@ -699,6 +701,12 @@
 
   function init() {
     DaoliJournal.init();
+    DaoliBazi.init();
+    document.addEventListener("bazi-updated", function () {
+      var d = state.selected;
+      DaoliBazi.renderToday(solarOf(d.getFullYear(), d.getMonth() + 1, d.getDate()).getLunar());
+      renderCalendar();
+    });
     document.addEventListener("journal-updated", function () {
       renderCalendar();
       el("journalDelete").disabled = !DaoliJournal.has(DaoliJournal.dateKey(state.selected));

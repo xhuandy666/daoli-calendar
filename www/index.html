@@ -22,6 +22,24 @@
       <div class="tagline">观天之道 · 执天之行 · 尽矣</div>
     </header>
 
+    <details class="bazi-profile" id="baziProfile">
+      <summary id="baziSummary">我的八字 · 未设置</summary>
+      <form id="baziForm">
+        <div class="bazi-modes" role="group" aria-label="八字录入方式">
+          <label><input type="radio" name="baziMode" value="pillars" checked>四柱</label>
+          <label><input type="radio" name="baziMode" value="master">仅日主</label>
+        </div>
+        <fieldset id="baziPillars" class="bazi-inputs">
+          <label>年柱<input id="bazi-year" type="text" maxlength="2" placeholder="如甲子" autocomplete="off" spellcheck="false"></label>
+          <label>月柱<input id="bazi-month" type="text" maxlength="2" placeholder="如丙寅" autocomplete="off" spellcheck="false"></label>
+          <label>日柱<input id="bazi-day" type="text" maxlength="2" placeholder="如癸酉" autocomplete="off" spellcheck="false"></label>
+          <label>时柱<input id="bazi-time" type="text" maxlength="2" placeholder="如壬子" autocomplete="off" spellcheck="false"></label>
+        </fieldset>
+        <label id="baziMasterField" hidden>日主<select id="baziMaster"><option value="">请选择</option></select></label>
+        <div class="bazi-actions"><button type="submit">保存八字</button><button type="button" id="baziClear" disabled>清除资料</button><span id="baziStatus" role="status"></span></div>
+      </form>
+    </details>
+
     <!-- 手机端 Tab -->
     <nav class="tabs" id="tabs">
       <button type="button" data-tab="today" class="active">今 日</button>
@@ -63,11 +81,14 @@
             <div class="tao-date" id="tTao">—</div>
           </div>
 
+          <div id="baziReference" class="bazi-reference" hidden></div>
           <div class="ganzhi-grid">
-            <div class="gz-cell"><div class="k">年 · 干支</div><div class="v" id="tGzY">—</div></div>
-            <div class="gz-cell"><div class="k">月 · 干支</div><div class="v" id="tGzM">—</div></div>
-            <div class="gz-cell"><div class="k">日 · 干支</div><div class="v" id="tGzD">—</div></div>
+            <div class="gz-cell"><div class="k">年 · 立春</div><div class="v" id="tGzY">—</div></div>
+            <div class="gz-cell"><div class="k">月 · 节令</div><div class="v" id="tGzM">—</div></div>
+            <div class="gz-cell"><div class="k">日 · 零点</div><div class="v" id="tGzD">—</div></div>
           </div>
+          <div class="ganzhi-convention">立春日换年 · 交节日换月</div>
+          <details id="baziHidden" class="bazi-hidden" hidden><summary>地支藏干十神</summary><div id="baziHiddenList"></div></details>
 
           <div class="jieqi-line" id="tJieqi" hidden></div>
 
@@ -148,6 +169,7 @@
   <script src="lunar.js"></script>
   <script src="data.js"></script>
   <script src="journal.js"></script>
+  <script src="bazi.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -16,6 +16,7 @@ test('desktop journal persists, isolates dates, restores backups and renders res
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     await expect(page.locator('#journalFields')).toBeEnabled();
+    await expect(page.locator('#datePicker')).toHaveValue(/^\d{4}-\d{2}-\d{2}$/);
     const date = await page.locator('#datePicker').inputValue();
     await page.locator('#journalText').fill('甲乙木：今天散步后心情轻松。<script>不执行</script>');
     await page.locator('#influence-wood').selectOption('滋养');
