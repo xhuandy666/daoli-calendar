@@ -1,104 +1,116 @@
-# 道系日历 · DAOLI CALENDAR
+<img src="build/icon.png" width="112" alt="道历应用图标">
 
-## macOS 桌面版与五行日记
+# 道历 · 五行日记
 
-本 fork 基于 [qianye-wuyu/daoli-calendar](https://github.com/qianye-wuyu/daoli-calendar)，增加 Electron 桌面应用、干支五行配色及每日手记。
+离线日历与个人手记应用：查看农历、干支、道家节日与每日宜忌，按天记录心情、经历和五行感受。
+
+本仓库基于 [qianye-wuyu/daoli-calendar](https://github.com/qianye-wuyu/daoli-calendar)，由 [xhuandy666](https://github.com/xhuandy666/daoli-calendar) 增加 macOS Electron 桌面端、干支五行配色、每日手记与独立应用图标，保留上游 Web 页面和 Android 工程。
+
+## 功能
+
+- 日历：公历、农历、生肖、道历纪年、节气、节日、宜忌与词条说明。
+- 五行配色：年、月、日干支逐字着色，月历显示当日日干支。
+- 每日手记：正文、心情与五行的「滋养／平衡／消耗」感受，输入即保存。
+- 月历圆点标记有日记的日期，可按天读取、修改和删除。
+- JSON 备份导出与合并导入；确认后覆盖同日记录，无效备份拒绝导入。
+- macOS 系统编辑菜单、缩放和单实例运行，关闭窗口后可从 Dock 重新打开。
+- 日历和手记在本机运行，无需账户或网络。
+
+## macOS 使用
+
+当前安装包适配 Apple Silicon（M 系列芯片）。双击 `道历.app` 即可运行，也可打开 DMG，将应用拖到桌面或「应用程序」文件夹。
+
+仓库不提交安装包二进制文件，源码构建后产物如下：
+
+| 产物 | 路径 |
+| --- | --- |
+| 应用 | `dist/mac-arm64/道历.app` |
+| 安装镜像 | `dist/Daoli-1.1.0-arm64.dmg` |
+| 压缩包 | `dist/Daoli-1.1.0-arm64.zip` |
+
+本地构建未经过 Apple Developer 签名和公证，不提供自动更新。Intel 版本可以单独构建，但尚未实机验证。
+
+## 源码运行与打包
+
+需要 Node.js 与 npm，已在 macOS arm64、Node.js 24 环境验证。首次安装及打包需要下载依赖，应用运行无需联网。
 
 ```bash
+git clone https://github.com/xhuandy666/daoli-calendar.git
+cd daoli-calendar
 npm ci
 npm start
-npm test
+
+# Apple Silicon：APP、DMG 和 ZIP
 npm run dist:mac
+
+# Intel：单独构建，未实机验证
+npx electron-builder --mac dmg zip --x64
+
+# Electron 端到端测试，需要图形桌面环境
+npm test
 ```
 
-打包产物在 `dist/`：Apple Silicon 的 `.dmg`、`.zip` 与 `mac-arm64/道历.app`。本地构建未经过 Apple Developer 签名和公证。Intel Mac 可运行 `npx electron-builder --mac dmg zip --x64` 单独构建。
+测试覆盖自动保存、重启恢复、日期隔离、备份导出与恢复、无效导入、保存失败保护和窄屏布局，使用临时用户目录，不会修改个人日记。
 
-天干与地支分别按本属五行着色：甲乙寅卯为木（绿），丙丁巳午为火（红），戊己辰戌丑未为土（赭黄），庚辛申酉为金（银灰），壬癸亥子为水（蓝）；不涉及地支藏干或纳音。年、月、日干支与月历中的日干支使用同一规则。
+浏览器端可直接打开 `www/index.html`，或在 `www` 目录启动静态服务器。浏览器与桌面版的数据独立，可通过备份迁移。
 
-每日手记包含正文、心情及木火土金水的滋养／平衡／消耗感受，输入后自动保存，月历圆点标记已有日记。五行感受是个人观察记录，不做因果推断。支持删除和 JSON 备份导入导出，导入合并日期，同日记录在确认后覆盖。
+## 五行配色
 
-日记保存在本机 Electron 用户数据目录的 Local Storage 中（通常为 `~/Library/Application Support/daoli-calendar/`），不上传服务器、不进入 Git 仓库，也未额外加密。浏览器与桌面版的数据独立，可通过导出／导入迁移。移除用户数据会删除日记，请定期导出备份。
+| 五行 | 天干 | 地支 | 颜色 |
+| --- | --- | --- | --- |
+| 木 | 甲、乙 | 寅、卯 | 绿色 |
+| 火 | 丙、丁 | 巳、午 | 红色 |
+| 土 | 戊、己 | 辰、戌、丑、未 | 赭黄 |
+| 金 | 庚、辛 | 申、酉 | 银灰 |
+| 水 | 壬、癸 | 子、亥 | 蓝色 |
 
-一款**完全离线**的道教日历 App —— 打开即看今天是什么日子：农历、干支、道历纪年、道家节日、每日宜忌，每条节日与宜忌都有通俗详解。支持查看公元 1–9999 年任意一天。
+使用干支本属五行，不涉及藏干、纳音或个人八字分析。五行感受由本人填写，用于自我观察，不自动推断五行与经历的因果关系。
 
-> 道袍深蓝 + 鎏金太极 UI · 无广告 · 无联网 · 无权限请求
+## 日记与备份
 
-## ✨ 功能特性
+日记以 Local Storage 保存于 Electron 用户数据目录，通常位于 `~/Library/Application Support/daoli-calendar/`，不同启动方式下目录名称可能不同。移动应用到桌面不会把日记搬入应用包，替换应用时应保留原用户数据目录。
 
-- 🗓️ **月历视图**：标准 7 列网格，农历 + 节日徽章 + 今日高亮，支持任意年份跳转（公元 1–9999 年）
-- ☯️ **今日视图**：公历 / 农历 / 干支 / 生肖 / 道历纪年 / 节气 / 节日 / 宜忌一屏尽览
-- 🎊 **85+ 道家节日**：神仙圣诞（玉皇大帝、太上老君、真武大帝、吕祖、妈祖、财神…）、三元、五腊、三会，每条附「来历 + 意义 + 这一天做什么」
-- ⚠️ **重要下降日**：北斗 / 南斗 / 真武 / 太乙救苦 / 三官 / 雷祖 / 吕祖 / 玉皇 / 斗姆 / 天曹 / 三清降现（据《天皇至道太清玉册·朝修吉辰章》），过滤掉每日刷屏的冷门下降日
-- 📖 **宜忌详解**：点击任一宜 / 忌词条，弹窗显示通俗解释（内置 130+ 词条 + 通用兜底）
-- 📱 **滑动切换**：手机端左右滑动切换「今日 ⇄ 月历」
-- 🔒 **100% 本地**：农历引擎 + 节日数据全部内嵌，飞行模式可用
+数据不上传服务器、不进入 Git，也没有额外加密。删除用户数据或清理浏览器站点存储会移除日记，建议定期「导出备份」。备份为可读 JSON，请妥善保管。
 
-## 📸 截图
+导入会合并日期，确认后覆盖同日记录，建议先备份现有数据。保存失败时，编辑区保留草稿并阻止切换日期，可先导出备份。导入上限为 20 MB，单日日记正文上限为 100,000 字符。
 
-| 今日视图 | 月历视图 |
-|---------|---------|
-| 见 `docs/screenshots/` | 见 `docs/screenshots/` |
+## Android
 
-## 🚀 快速开始
+保留上游 Capacitor 8 工程。本 fork 的新功能尚未重新验证 Android APK，上游 APK 不包含本 fork 的日记改动。
 
-### 直接使用
-
-- **安卓**：下载 [Releases](https://github.com/qianye-wuyu/daoli-calendar/releases) 中的 APK 直接安装（Android 7.0+）
-- **电脑**：用浏览器打开 `www/index.html` 即可（Mac / Windows / Linux 通用）
-
-### 从源码构建 APK
-
-1. 安装 **JDK 17+** 与 **Android SDK**（compileSdk 36 / minSdk 24）
-2. 构建：
+修改 Web 资源后，先同步再构建：
 
 ```bash
+npx cap sync android
 cd android
-export JAVA_HOME=<你的 JDK 路径>
-export ANDROID_HOME=<你的 Android SDK 路径>
 ./gradlew assembleDebug
 ```
 
-3. 产物：`android/app/build/outputs/apk/debug/app-debug.apk`
+需要与工程配置匹配的 JDK 和 Android SDK；产物为 `android/app/build/outputs/apk/debug/app-debug.apk`。
 
-## 📂 目录结构
+## 项目结构
 
-```
-daoli-calendar/
-├── www/                          # Web 应用源码（核心）
-│   ├── index.html                # 页面骨架
-│   ├── style.css                 # 样式（道袍深蓝主题）
-│   ├── app.js                    # 业务逻辑
-│   ├── data.js                   # 道家节日字典（85+ 条目）
-│   └── lunar.js                  # 农历/道历引擎（6tail lunar，勿改）
-├── android/                      # Capacitor 安卓工程
-│   ├── app/src/main/assets/      # 打包进 APK 的资源
-│   ├── app/src/main/java/        # MainActivity
-│   ├── build.gradle
-│   ├── gradle/wrapper/           # Gradle Wrapper（8.14.3）
-│   └── variables.gradle          # SDK 版本配置
-├── docs/screenshots/             # 截图
-├── README.md
-└── LICENSE
+```text
+build/icon.png          macOS 图标源图，打包时转换为 ICNS
+electron/main.cjs       Electron 主进程与原生菜单
+www/index.html         页面结构
+www/style.css          日历、五行和手记样式
+www/app.js             日历交互
+www/journal.js         日记存储、备份与五行配色
+www/lunar.js           本地农历计算引擎
+www/data.js            道家节日资料
+tests/desktop.spec.cjs  Electron 端到端测试
+android/               上游 Android 工程
+dist/                  本机构建产物，不提交到 Git
 ```
 
-## 🛠 技术栈
+图标采用深青珐琅底、金色太极和日历页，由内置 imagegen 生成。完整提示词见 [图标设计说明](build/ICON.md)。
 
-| 组件 | 说明 |
-|------|------|
-| [lunar-javascript](https://github.com/6tail/lunar-javascript) | 农历/道历计算引擎（支持公历 1–9999 年、道历纪年、干支、节气、宜忌） |
-| [Capacitor](https://capacitorjs.com/) | Web → 原生安卓打包（v7） |
-| 原生 Web 技术 | 纯 HTML/CSS/JS，无任何前端框架依赖 |
+## 致谢与许可
 
-## 📚 数据来源与致谢
+- 原项目：[qianye-wuyu/daoli-calendar](https://github.com/qianye-wuyu/daoli-calendar)。
+- 农历与道历引擎：[6tail/lunar-javascript](https://github.com/6tail/lunar-javascript)。
+- 道家节日资料沿用上游整理，参考《天皇至道太清玉册·朝修吉辰章》等。
+- 桌面打包使用 Electron 与 electron-builder，Android 工程使用 Capacitor。
 
-- 农历 / 道历 / 宜忌数据：[6tail/lunar-javascript](https://github.com/6tail/lunar-javascript)（MIT License）
-- 道家节日体系：参考《天皇至道太清玉册·朝修吉辰章》、道教之音整理
-- UI 审美：[Taste Enhancer](https://github.com/)（WorkBuddy 审美增强技能）
-
-## 📄 许可证
-
-[MIT](LICENSE) © qianye-wuyu
-
----
-
-*福生无量天尊 ☯ 观天之道 · 执天之行 · 尽矣*
+[MIT License](LICENSE)，保留上游作者的版权声明。

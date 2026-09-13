@@ -16,7 +16,7 @@
     "productName": "道历",
     "files": ["www/**/*", "electron/**/*", "package.json"],
     "asar": true,
-    "mac": { "category": "public.app-category.lifestyle", "identity": null },
+    "mac": { "category": "public.app-category.lifestyle", "identity": null, "icon": "build/icon.png" },
     "artifactName": "Daoli-${version}-${arch}.${ext}"
   },
   "dependencies": {
