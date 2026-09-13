@@ -1,17 +1,32 @@
 {
-  "name": "app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "daoli-calendar",
+  "version": "1.1.0",
+  "description": "离线道历与五行日记",
+  "main": "electron/main.cjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "playwright test",
+    "start": "electron .",
+    "dist:mac": "electron-builder --mac dmg zip --arm64"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "qianye-wuyu and xhuandy666",
+  "license": "MIT",
+  "build": {
+    "appId": "com.xhuandy.daoli-calendar",
+    "productName": "道历",
+    "files": ["www/**/*", "electron/**/*", "package.json"],
+    "asar": true,
+    "mac": { "category": "public.app-category.lifestyle", "identity": null },
+    "artifactName": "Daoli-${version}-${arch}.${ext}"
+  },
   "dependencies": {
     "@capacitor/android": "^8.5.0",
     "@capacitor/cli": "^8.5.0",
     "@capacitor/core": "^8.5.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "electron": "^44.3.0",
+    "electron-builder": "^26.15.3"
   }
 }

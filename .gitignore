@@ -1,5 +1,8 @@
 # 依赖与构建产物（不入库）
 node_modules/
+dist/
+test-results/
+playwright-report/
 android/.gradle/
 android/build/
 android/app/build/

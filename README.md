@@ -1,5 +1,24 @@
 # 道系日历 · DAOLI CALENDAR
 
+## macOS 桌面版与五行日记
+
+本 fork 基于 [qianye-wuyu/daoli-calendar](https://github.com/qianye-wuyu/daoli-calendar)，增加 Electron 桌面应用、干支五行配色及每日手记。
+
+```bash
+npm ci
+npm start
+npm test
+npm run dist:mac
+```
+
+打包产物在 `dist/`：Apple Silicon 的 `.dmg`、`.zip` 与 `mac-arm64/道历.app`。本地构建未经过 Apple Developer 签名和公证。Intel Mac 可运行 `npx electron-builder --mac dmg zip --x64` 单独构建。
+
+天干与地支分别按本属五行着色：甲乙寅卯为木（绿），丙丁巳午为火（红），戊己辰戌丑未为土（赭黄），庚辛申酉为金（银灰），壬癸亥子为水（蓝）；不涉及地支藏干或纳音。年、月、日干支与月历中的日干支使用同一规则。
+
+每日手记包含正文、心情及木火土金水的滋养／平衡／消耗感受，输入后自动保存，月历圆点标记已有日记。五行感受是个人观察记录，不做因果推断。支持删除和 JSON 备份导入导出，导入合并日期，同日记录在确认后覆盖。
+
+日记保存在本机 Electron 用户数据目录的 Local Storage 中（通常为 `~/Library/Application Support/daoli-calendar/`），不上传服务器、不进入 Git 仓库，也未额外加密。浏览器与桌面版的数据独立，可通过导出／导入迁移。移除用户数据会删除日记，请定期导出备份。
+
 一款**完全离线**的道教日历 App —— 打开即看今天是什么日子：农历、干支、道历纪年、道家节日、每日宜忌，每条节日与宜忌都有通俗详解。支持查看公元 1–9999 年任意一天。
 
 > 道袍深蓝 + 鎏金太极 UI · 无广告 · 无联网 · 无权限请求

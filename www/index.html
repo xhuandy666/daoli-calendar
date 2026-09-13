@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#1b2a4a">
   <meta name="color-scheme" content="light">
@@ -47,6 +48,7 @@
             <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
           </div>
           <div class="cal-grid" id="calGrid" aria-label="月历网格"></div>
+          <div class="element-legend"><span class="wx-wood">木</span><span class="wx-fire">火</span><span class="wx-earth">土</span><span class="wx-metal">金</span><span class="wx-water">水</span></div>
         </div>
       </section>
 
@@ -68,6 +70,25 @@
           </div>
 
           <div class="jieqi-line" id="tJieqi" hidden></div>
+
+          <section class="journal" aria-labelledby="journalHeading">
+            <div class="journal-head"><h2 id="journalHeading">每日手记</h2><span id="journalStatus" role="status"></span></div>
+            <div id="journalDate"></div>
+            <fieldset id="journalFields" disabled>
+              <label for="journalMood">今日心情</label>
+              <select id="journalMood"><option value="">未记录</option><option>低落</option><option>疲惫</option><option>平静</option><option>愉快</option><option>充沛</option></select>
+              <div class="journal-label">五行感受</div>
+              <div id="journalElements" class="journal-elements"></div>
+              <label for="journalText">今日经历与感受</label>
+              <textarea id="journalText" rows="6" maxlength="100000" placeholder="今天发生了什么？身心状态有哪些变化？"></textarea>
+            </fieldset>
+            <div class="journal-actions">
+              <button id="journalExport" type="button">导出备份</button>
+              <button id="journalImport" type="button">导入备份</button>
+              <button id="journalDelete" type="button">删除当日日记</button>
+              <input id="journalFile" type="file" accept=".json,application/json" hidden>
+            </div>
+          </section>
 
           <div class="section-title">今日节日</div>
           <div id="tFestivals" class="fest-list"></div>
@@ -126,6 +147,7 @@
 
   <script src="lunar.js"></script>
   <script src="data.js"></script>
+  <script src="journal.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

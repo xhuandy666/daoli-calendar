@@ -409,6 +409,38 @@ body::before {
 .year-box button:hover { background: var(--ink-600); }
 .modal-hint { font-size: 12px; color: var(--ink-300); margin-top: 8px; letter-spacing: 0.06em; }
 
+.wx-wood { color: #247346; }
+.wx-fire { color: #b13536; }
+.wx-earth { color: #866016; }
+.wx-metal { color: #626975; }
+.wx-water { color: #246b9d; }
+.element-legend { display: flex; justify-content: center; gap: 24px; margin-top: 18px; font-size: 13px; }
+.cal-ganzhi { font-size: 12px; line-height: 1.4; }
+.day-cell { font-family: var(--serif); min-height: 88px; }
+.day-cell.is-selected .wx-wood { color: #8ed6a2; }
+.day-cell.is-selected .wx-fire { color: #ffa29e; }
+.day-cell.is-selected .wx-earth { color: #efd284; }
+.day-cell.is-selected .wx-metal { color: #e7ebf1; }
+.day-cell.is-selected .wx-water { color: #94d4ff; }
+.day-cell.has-journal::after { content: ""; position: absolute; left: 5px; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--jade); }
+.journal { margin: 20px 0; padding: 18px 0; border-block: 1px solid #d8d4cb; font-family: var(--sans); }
+.journal-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
+.journal h2 { font-size: 18px; letter-spacing: 0; }
+#journalStatus, #journalDate { font-size: 12px; color: #626975; }
+#journalDate { margin: 4px 0 12px; }
+.journal fieldset { border: 0; min-width: 0; }
+.journal label, .journal-label { display: block; font-size: 13px; margin: 8px 0; }
+.journal select, .journal textarea { font: inherit; color: var(--ink-800); background: #fff; border: 1px solid #c7cbd0; border-radius: 6px; padding: 8px; max-width: 100%; }
+.journal textarea { width: 100%; resize: vertical; display: block; min-height: 150px; line-height: 1.8; }
+.journal-elements { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.journal-elements select { display: block; width: 100%; font-size: 12px; padding: 6px 2px; margin-top: 5px; }
+.journal-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.journal-actions button { padding: 7px 10px; font: inherit; font-size: 12px; border: 1px solid #c7cbd0; border-radius: 6px; background: #fff; cursor: pointer; }
+.journal-actions button:last-of-type { color: #a63a2e; margin-left: auto; }
+button:disabled { opacity: .5; cursor: default; }
+button:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #247346; outline-offset: 2px; }
+@media (max-width: 560px) { .journal-elements { gap: 4px; } .day-nav { flex-wrap: wrap; } }
+
 /* ================= 页脚 ================= */
 .footer { margin-top: 22px; text-align: center; font-size: 12px; color: var(--ink-300); letter-spacing: 0.15em; }
 

@@ -330,9 +330,10 @@
     setText("tLunar", "农历 " + lunar.toString());
     setText("tShengxiao", "生肖 · " + lunar.getYearShengXiao());
     setText("tTao", "道历" + tao.toString().split("年")[0] + "年");
-    setText("tGzY", lunar.getYearInGanZhi() + "年");
-    setText("tGzM", lunar.getMonthInGanZhi() + "月");
-    setText("tGzD", lunar.getDayInGanZhi() + "日");
+    DaoliJournal.colorize(el("tGzY"), lunar.getYearInGanZhi() + "年");
+    DaoliJournal.colorize(el("tGzM"), lunar.getMonthInGanZhi() + "月");
+    DaoliJournal.colorize(el("tGzD"), lunar.getDayInGanZhi() + "日");
+    DaoliJournal.show(DaoliJournal.dateKey(d));
 
     // 节气
     var jieqi = lunar.getJieQi();
@@ -372,7 +373,7 @@
 
     // 日期选择器同步
     var picker = el("datePicker");
-    var iso = ymd(d);
+    var iso = DaoliJournal.dateKey(d);
     if (picker.value !== iso) picker.value = iso;
   }
 
@@ -434,7 +435,13 @@
         cellY = y; cellM = m; cellD = i - firstWeek + 1;
       }
 
-      var cell = document.createElement("div");
+      if (cellY < 1 || cellY > 9999) {
+        grid.appendChild(document.createElement("div"));
+        continue;
+      }
+      var cell = document.createElement("button");
+      cell.type = "button";
+      cell.setAttribute("aria-label", cellY + "年" + cellM + "月" + cellD + "日");
       cell.className = "day-cell" + (muted ? " is-muted" : "");
       cell.dataset.y = cellY;
       cell.dataset.m = cellM;
@@ -459,17 +466,25 @@
         marks +
         '<div class="sd">' + cellD + "</div>" +
         '<div class="ld">' + lunar.getDayInChinese() + "</div>";
+      var gz = document.createElement("div");
+      gz.className = "cal-ganzhi";
+      DaoliJournal.colorize(gz, lunar.getDayInGanZhi());
+      cell.appendChild(gz);
+      if (DaoliJournal.has(DaoliJournal.dateKey(makeDate(cellY, cellM, cellD)))) {
+        cell.classList.add("has-journal");
+      }
 
       // 月历徽章：显示最重要的一个节日名，其余以 +N 提示
       if (!muted && hasFest) {
-        var top = sortFestivals(fests)[0];
+        let top = sortFestivals(fests)[0];
+        let festivalLunar = lunar;
         var more = fests.length - 1;
         var b = document.createElement("div");
         b.className = "cal-badge t-" + top.type + (top.imp ? " imp" : "");
         b.textContent = top.name + (more > 0 ? " +" + more : "");
         b.addEventListener("click", function (ev) {
           ev.stopPropagation();
-          openFestivalModal(top, lunar);
+          openFestivalModal(top, festivalLunar);
         });
         cell.appendChild(b);
       }
@@ -485,15 +500,12 @@
       grid.appendChild(cell);
     }
 
-    // 切换月份过渡动画
-    grid.classList.remove("anim");
-    void grid.offsetWidth; // 强制回流以重启动画
-    grid.classList.add("anim");
   }
 
   /* ---------- 状态变更 ---------- */
 
   function selectDate(y, m, d) {
+    if (!DaoliJournal.canLeave()) return;
     state.selected = makeDate(y, m, d);
     // 若点的是相邻月（灰格），月历也跟随跳转
     if (y !== state.calYear || m !== state.calMonth) {
@@ -506,6 +518,7 @@
   }
 
   function shiftDay(delta) {
+    if (!DaoliJournal.canLeave()) return;
     var d = new Date(state.selected.getTime());
     d.setDate(d.getDate() + delta); // setDate 自动处理跨月/跨年，且年份安全
     if (d.getFullYear() < 1 || d.getFullYear() > 9999) return; // 超出引擎范围
@@ -613,6 +626,7 @@
     el("prevDay").addEventListener("click", function () { shiftDay(-1); });
     el("nextDay").addEventListener("click", function () { shiftDay(1); });
     el("goToday").addEventListener("click", function () {
+      if (!DaoliJournal.canLeave()) return;
       state.selected = normDate(new Date());
       state.calYear = state.selected.getFullYear();
       state.calMonth = state.selected.getMonth() + 1;
@@ -620,6 +634,7 @@
       renderCalendar();
     });
     el("datePicker").addEventListener("change", function (ev) {
+      if (!DaoliJournal.canLeave()) { ev.target.value = DaoliJournal.dateKey(state.selected); return; }
       var v = ev.target.value;
       if (!v) return;
       var parts = v.split("-");
@@ -683,6 +698,11 @@
   /* ---------- 启动 ---------- */
 
   function init() {
+    DaoliJournal.init();
+    document.addEventListener("journal-updated", function () {
+      renderCalendar();
+      el("journalDelete").disabled = !DaoliJournal.has(DaoliJournal.dateKey(state.selected));
+    });
     bindEvents();
     if (window.innerWidth < 900) bindSwipe(); // 手机端启用左右滑动切换
     renderToday();
